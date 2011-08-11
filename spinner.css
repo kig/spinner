@@ -1,0 +1,59 @@
+.spinner-container > div {
+  -webkit-transform-origin: 50% 50%;
+  -webkit-transition: 0.5s ease-in;
+  -webkit-transition-property: opacity, -webkit-transform;
+  -moz-transform-origin: 50% 50%;
+  -moz-transition: 0.5s ease-in;
+  -moz-transition-property: opacity, -moz-transform;
+  -ms-transform-origin: 50% 50%;
+  -ms-transition: 0.5s ease-in;
+  -ms-transition-property: opacity, -ms-transform;
+  -o-transform-origin: 50% 50%;
+  -o-transition: 0.5s ease-in;
+  -o-transition-property: opacity, -o-transform;
+}
+.spinner-bringIn {
+  opacity: 1;
+  -webkit-transform: scale(1);
+  -moz-transform: scale(1);
+  -ms-transform: scale(1);
+  -o-transform: scale(1);
+}
+.spinner-bringOut {
+  opacity: 0;
+  -webkit-transform: scale(0);
+  -moz-transform: scale(0);
+  -ms-transform: scale(0);
+  -o-transform: scale(0);
+}
+
+@-webkit-keyframes spinnerAnim {
+  0% { -webkit-transform: rotate(0deg); }
+  100% { -webkit-transform: rotate(360deg); }
+}
+@-moz-keyframes spinnerAnim {
+  0% { -moz-transform: rotate(0deg); }
+  100% { -moz-transform: rotate(360deg); }
+}
+@-ms-keyframes spinnerAnim {
+  0% { -ms-transform: rotate(0deg); }
+  100% { -ms-transform: rotate(360deg); }
+}
+@-o-keyframes spinnerAnim {
+  0% { -o-transform: rotate(0deg); }
+  100% { -o-transform: rotate(360deg); }
+}
+.spinner {
+  -webkit-animation-fill-mode: both;
+  -webkit-animation: spinnerAnim 1.5s infinite linear;
+  -webkit-transform-origin: 50% 50%;
+  -moz-animation-fill-mode: both;
+  -moz-animation: spinnerAnim 1.5s infinite linear;
+  -moz-transform-origin: 50% 50%;
+  -ms-animation-fill-mode: both;
+  -ms-animation: spinnerAnim 1.5s infinite linear;
+  -ms-transform-origin: 50% 50%;
+  -o-animation-fill-mode: both;
+  -o-animation: spinnerAnim 1.5s infinite linear;
+  -o-transform-origin: 50% 50%;
+}

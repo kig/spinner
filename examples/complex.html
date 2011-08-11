@@ -1,0 +1,102 @@
+<!doctype html>
+<html>
+  <head>
+    <link rel="stylesheet" href="../spinner.css" type="text/css">
+    <script type="text/javascript" src="../spinner.js"></script>
+    <style type="text/css">
+      #whitebg, #blackbg {
+        position: relative;
+        border-radius: 16px;
+        box-shadow: 0px 1px 3px rgba(0,0,0,0.75);
+        width: 200px;
+        height: 200px;
+        display: inline-block;
+        margin-right: 8px;
+        -webkit-transform: translateZ(0);
+        overflow: hidden;
+        -webkit-transition-duration: 0.5s;
+        -moz-transition-duration: 0.5s;
+        -ms-transition-duration: 0.5s;
+        -o-transition-duration: 0.5s;
+        vertical-align: top;
+      }
+      img {
+        border-radius: 16px;
+        -webkit-transition-duration: 0.5s;
+        -moz-transition-duration: 0.5s;
+        -ms-transition-duration: 0.5s;
+        -o-transition-duration: 0.5s;
+        cursor: pointer;
+        opacity: 0;
+      }
+      #whitebg {
+        background-color: white;
+      }
+      #blackbg {
+        background-color: black;
+      }
+      .fadeOut {
+        opacity: 0;
+      }
+      .fadeIn {
+        opacity: 1;
+      }
+    </style>
+    <script type="text/javascript">
+      var createSlideshow = function(container, nextURLFunc, color) {
+        var img = new Image();
+        var w = container;
+        var wspinner = new Spinner(w, color);
+        w.appendChild(img);
+        img.onload = function() {
+          var self = this;
+          w.style.width = self.width + 'px';
+          w.style.height = self.height + 'px';
+          wspinner.hide();
+        };
+        wspinner.onhide = function() {
+          img.className = 'fadeIn'; 
+        };
+        wspinner.onshow = function() {
+          img.src = nextURLFunc();
+        };
+        var advanceTimeout = null;
+        var advance = function() {
+          img.className = 'fadeOut';
+          wspinner.show();
+          if (advanceTimeout != null) {
+            clearTimeout(advanceTimeout);
+            advanceTimeout = null;
+          }
+          advanceTimeout = setTimeout(function(){advance();}, 5000);
+        };
+        container.onclick = advance;
+        setTimeout(function(){advance();}, 5000);
+        wspinner.show();
+        img.src = nextURLFunc();
+      };
+      var polaroidCounter = function() {
+        var c = -1;
+        return function() {
+           c = (c + 1) % 8;
+           return '../polaroids/'+(c+1)+'.jpg';
+        };
+      };
+      window.onload = function() {
+        createSlideshow( document.getElementById('whitebg'), polaroidCounter(), 'black' );
+        createSlideshow( document.getElementById('blackbg'), polaroidCounter(), 'white' );
+      };
+    </script>
+  </head>
+  <body>
+    <div id="whitebg"></div>
+    <div id="blackbg"></div>
+<!--
+    <div style="display:inline-block;" class="spinner-bringIn">
+     <svg class="spinner" xmlns="http://www.w3.org/2000/svg" width="50px" height="50px">
+      <circle cx='25' cy='25' r='20' fill='none' stroke='black' stroke-width='3' stroke-dasharray='24 18'/>
+     </svg>
+    </div>
+-->
+  </body>
+</html>
