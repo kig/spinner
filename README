@@ -10,6 +10,38 @@ spinner stylesheet and JS file to your page:
     <link rel="stylesheet" href="spinner.css" type="text/css">
     <script type="text/javascript" src="spinner.js"></script>
 
+The spinner library adds an object named Spinner to the global
+namespace. Here's the Spinner API:
+
+  // Create a new Spinner and append it to the container element.
+  // The spinner graphic is drawn in the specified color.
+  // The spinner element's center is absolute-positioned at the given
+  // coordinates. The spinner has negative margin-left and margin-top
+  // to center the spinner at the coordinates.
+  var s = new Spinner(
+    container : HTMLElement,
+    color : String<CSSColor>,
+    x : String<CSSCoordinate>,
+    y : String<CSSCoordinate>
+  );
+
+  // Show the spinner after 17 ms.
+  // Hack to get around transitions not firing on newly appended elements.
+  s.start();
+
+ // Shows spinner by setting spinner element's className to spinner-bringIn.
+  s.show();
+
+ // Hides spinner by setting spinner element's className to spinner-bringOut.
+  s.hide();
+  
+  // Set callback function to call after spinner is completely visible.
+  s.onshow = function() {}; 
+
+  // Set callback function to call after spinner is completely hidden.
+  s.onhide = function() {};
+
+
 After you have added the spinner files to your
 page, you can use the library. Here's a small example
 that implements a slideshow with the spinner (examples/simple.html):
