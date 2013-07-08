@@ -11,7 +11,9 @@
   -o-transform-origin: 50% 50%;
   -o-transition: 0.5s ease-in;
   -o-transition-property: opacity, -o-transform;
+  z-index: 100;
 }
+
 .spinner-bringIn {
   opacity: 1;
   -webkit-transform: scale(1);
@@ -25,6 +27,24 @@
   -moz-transform: scale(0);
   -ms-transform: scale(0);
   -o-transform: scale(0);
+}
+
+.spinner-curtain {
+  height: 100%;
+  width: 100%;
+  position: absolute;
+  background-color: #444;
+  left: 0;
+  top: 0;
+  -webkit-transition: 0.5s ease-in;
+  -webkit-transition-property: opacity, -webkit-transform;
+  -moz-transition: 0.5s ease-in;
+  -moz-transition-property: opacity, -moz-transform;
+  -ms-transition: 0.5s ease-in;
+  -ms-transition-property: opacity, -ms-transform;
+  -o-transition: 0.5s ease-in;
+  -o-transition-property: opacity, -o-transform;
+  z-index: 99;
 }
 
 @-webkit-keyframes spinnerAnim {

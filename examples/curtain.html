@@ -1,0 +1,81 @@
+ <html>
+  <head>
+    <link rel="stylesheet" href="../spinner.css" type="text/css">
+    <script type="text/javascript" src="../spinner.js"></script>
+    <style type='text/css'>
+      #my-container {
+        position: relative;
+        width: 240px;
+        height: 520px;
+        float: left;
+        border: 2px dotted lightgrey;
+        padding: 15px;
+        margin: 20px;
+        border-radius: 15px;
+        text-align: center;
+        overflow: hidden;
+      }
+      #my-container p {
+        text-align: left;
+      }
+      #my-container img {
+        -webkit-transition-duration: 0.5s;
+        -moz-transition-duration: 0.5s;
+        -ms-transition-duration: 0.5s;
+        -o-transition-duration: 0.5s;
+        opacity: 0;
+      }
+      .spinner-curtain {
+        border-radius: 15px;
+      }
+    </style>
+  </head>
+  <body>
+    <div id="my-container">
+      <a href="#">Click to load an image</a>
+      <p>
+        Lorem ipsum dolor sit amet, consectetuer adipiscing elit, sed diam nonummy nibh euismod tincidunt ut laoreet dolore magna aliquam erat volutpat. Ut wisi enim ad minim veniam, quis nostrud exerci tation ullamcorper suscipit lobortis nisl ut aliquip ex ea commodo consequat.
+      </p>
+      <img></img>
+   </div>
+
+   <script>
+      var images = ['polaroids/4.jpg', 'polaroids/2.jpg', 'polaroids/3.jpg'];
+      var container = document.getElementById('my-container');
+
+      var link = container.firstElementChild;
+      var img = container.lastElementChild;
+      var spinner = new Spinner(container, { showCurtain: true });
+
+      // Hide image and show spinner when you click on the image.
+      // The spinner onshow handler loads the next image.
+      link.onclick = function(e) {
+        e.preventDefault();
+        // start up the spinner
+        img.style.opacity = 0;
+        spinner.start();
+      };
+
+        // Fade out the spinner when the image has loaded.
+      img.onload = function() {
+        spinner.hide();
+      };
+
+      // Show image when the spinner has faded out.
+      spinner.onhide = function() {
+        img.style.opacity = 1;
+      };
+
+      // Go to the next image when the spinner has faded in.
+      var i = 0;
+      spinner.onshow = function() {
+        setTimeout(function() {
+          img.src = images[i];
+          i = (i + 1) % images.length;
+        }, 500);
+      };
+
+      document.body.appendChild(container);
+   </script>
+  </body>
+ </html>
