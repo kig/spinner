@@ -46,7 +46,7 @@
       var createSlideshow = function(container, nextURLFunc, color) {
         var img = new Image();
         var w = container;
-        var wspinner = new Spinner(w, color);
+        var wspinner = new Spinner(w, {color: color });
         w.appendChild(img);
         img.onload = function() {
           var self = this;
@@ -55,7 +55,7 @@
           wspinner.hide();
         };
         wspinner.onhide = function() {
-          img.className = 'fadeIn'; 
+          img.className = 'fadeIn';
         };
         wspinner.onshow = function() {
           img.src = nextURLFunc();

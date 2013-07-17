@@ -37,11 +37,13 @@
    <div id='my-container'></div>
    <script>
     var container = document.getElementById('my-container');
-    var spinnerColor = 'black';
-    var x = '50%';
-    var y = '50%';
-    
-    var spinner = new Spinner(container, spinnerColor, x, y);
+    var options = {
+      color: 'black',
+      x: '50%',
+      y: '50%'
+    }
+
+    var spinner = new Spinner(container, options);
     var img = new Image();
     img.className = 'fadeOut';
     container.appendChild(img);
@@ -51,26 +53,26 @@
       'polaroids/1.jpg', 'polaroids/2.jpg', 'polaroids/8.jpg',
       'polaroids/5.jpg', 'polaroids/7.jpg', 'polaroids/4.jpg'
     ];
-        
+
     // Fade the spinner out when the image has loaded.
     img.onload = function() {
       container.style.width = this.width + 'px';
       container.style.height = this.height + 'px';
       spinner.hide();
     };
-    
+
     // Hide image and show spinner when you click on the image.
     // The spinner onshow handler loads the next image.
     img.onclick = function() {
       img.className = 'fadeOut';
       spinner.show();
     };
-    
+
     // Show image when the spinner has faded out.
     spinner.onhide = function() {
       img.className = 'fadeIn';
     };
-    
+
     // Go to the next image when the spinner has faded in.
     var i = 0;
     spinner.onshow = function() {

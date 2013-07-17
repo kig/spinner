@@ -1,6 +1,10 @@
-Spinner = function(container, color, x, y) {
-  this.element = this.create(x || '50%', y || '50%', color);
-  this.removeSelf = this.removeSelfFunc();
+Spinner = function(container, options) {
+  options = options || {};
+  this.element = this.create(options.x || '50%', options.y || '50%', options.color);
+
+  if (options.showCurtain) this.curtain = this.createCurtain();
+
+  this.removeSelf = this.removeSelfFunc(this.curtain);
   this.element.firstChild.addEventListener('webkitTransitionEnd', this.removeSelf, false);
   this.element.firstChild.addEventListener('msTransitionEnd', this.removeSelf, false);
   this.element.firstChild.addEventListener('oTransitionEnd', this.removeSelf, false);
@@ -16,15 +20,24 @@ Spinner.prototype = {
     var self = this;
     setTimeout(function() {
       self.show();
-    }, 17);
+    }, 0);
   },
 
   show : function() {
     this.element.firstChild.className = 'spinner-bringIn';
+    if (this.curtain) {
+      var self = this;
+      this.container.insertBefore(this.curtain, this.container.firstChild);
+      this.curtain.style.opacity = 0;
+      setTimeout(function() {
+        self.curtain.style.opacity = 0.5;
+      }, 0);
+    }
   },
 
   hide : function() {
     this.element.firstChild.className = 'spinner-bringOut';
+    if (this.curtain) this.curtain.style.opacity = 0;
   },
 
   create : function(x, y, color) {
@@ -55,20 +68,25 @@ Spinner.prototype = {
     return elem;
   },
 
-  removeSelfFunc : function() { 
+  createCurtain : function() {
+    var curtain = document.createElement('div');
+    curtain.className = 'spinner-curtain';
+    return curtain;
+  },
+
+  removeSelfFunc : function(curtain) {
     var self = this;
     return function(ev) {
       if (ev.target != this || ev.propertyName != 'opacity') {
         return;
       }
       if (this.parentNode && this.className == 'spinner-bringOut') {
-        if (self.onhide)
-          self.onhide();
+        if (self.onhide) self.onhide();
+        if (curtain) curtain.parentNode.removeChild(curtain);
       } else if (this.className == 'spinner-bringIn') {
-        if (self.onshow)
-          self.onshow();
+        if (self.onshow) self.onshow();
       }
     };
   }
-  
+
 };
